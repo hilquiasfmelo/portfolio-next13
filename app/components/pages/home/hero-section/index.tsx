@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { HiArrowNarrowRight } from 'react-icons/hi'
 import {
@@ -30,6 +32,14 @@ const MOCK_CONTACTS = [
 ]
 
 export function HeroSection() {
+  function handleContact() {
+    const contactSession = document.querySelector('#contact')
+
+    if (contactSession) {
+      contactSession.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <section className="w-full lg:h-[755px] bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[110px]">
       <div className="container flex items-start justify-between flex-col-reverse lg:flex-row">
@@ -51,7 +61,7 @@ export function HeroSection() {
           </div>
 
           <div className="flex mt-6 sm:items-center sm:gap-5 lg:mt-10 flex-col sm:flex-row">
-            <Button className="w-max shadow-button">
+            <Button className="w-max shadow-button" onClick={handleContact}>
               Entre em contato
               <HiArrowNarrowRight size={18} />
             </Button>
