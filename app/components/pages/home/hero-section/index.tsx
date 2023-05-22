@@ -2,36 +2,18 @@
 
 import Image from 'next/image'
 import { HiArrowNarrowRight } from 'react-icons/hi'
-import {
-  TbBrandGithub,
-  TbBrandLinkedin,
-  TbBrandTwitter,
-  TbBrandWhatsapp,
-} from 'react-icons/tb'
 
 import { Button } from '@/app/components/button'
 import { TechBadge } from '@/app/components/tech-badge'
+import { HomePageInfo } from '@/app/types/page-info'
+import { RichText } from '@/app/components/rich-text'
+import { CMSIcon } from '@/app/components/cms-icon'
 
-const MOCK_CONTACTS = [
-  {
-    url: 'https://github.com.br',
-    icon: <TbBrandGithub />,
-  },
-  {
-    url: 'https://github.com.br',
-    icon: <TbBrandLinkedin />,
-  },
-  {
-    url: 'https://github.com.br',
-    icon: <TbBrandTwitter />,
-  },
-  {
-    url: 'https://github.com.br',
-    icon: <TbBrandWhatsapp />,
-  },
-]
+type HeroSectionProps = {
+  homeInfo: HomePageInfo
+}
 
-export function HeroSection() {
+export function HeroSection({ homeInfo }: HeroSectionProps) {
   function handleContact() {
     const contactSession = document.querySelector('#contact')
 
@@ -47,16 +29,13 @@ export function HeroSection() {
           <p className="font-mono text-emerald-400">Olá, meu nome é</p>
           <h2 className="text-4xl font-medium mt-2">Hilquias Melo</h2>
 
-          <p className="text-gray-400 my-6 text-sm sm:text-base">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-            deserunt odit cum hic, voluptatum exercitationem blanditiis rem
-            corrupti ut minus veniam nihil similique quod praesentium velit
-            maiores in laboriosam eos!
-          </p>
+          <div className="text-gray-400 my-6 text-sm sm:text-base">
+            <RichText content={homeInfo.introduction.raw} />
+          </div>
 
           <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-            {Array.from({ length: 7 }).map((_, index) => (
-              <TechBadge name="Next.js" key={index} />
+            {homeInfo.technologies.map((tech, i) => (
+              <TechBadge name={tech.name} key={i} />
             ))}
           </div>
 
@@ -67,7 +46,7 @@ export function HeroSection() {
             </Button>
 
             <div className="flex items-center justify-center h-20 gap-3 text-2xl text-gray-600">
-              {MOCK_CONTACTS.map((contact, index) => (
+              {homeInfo.socials.map((contact, index) => (
                 <a
                   href={contact.url}
                   key={`contact-${index}`}
@@ -75,7 +54,7 @@ export function HeroSection() {
                   rel="noreferrer"
                   className="hover:text-gray-100 transition-colors"
                 >
-                  {contact.icon}
+                  <CMSIcon icon={contact.iconSvg} />
                 </a>
               ))}
             </div>
@@ -85,7 +64,8 @@ export function HeroSection() {
         <Image
           width={420}
           height={404}
-          src="/images/profile-pic.png"
+          src={homeInfo.profilePicture.url}
+          unoptimized
           alt=""
           className="w-[360px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
         />
