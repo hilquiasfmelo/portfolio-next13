@@ -3,19 +3,20 @@ import { HiArrowNarrowRight } from 'react-icons/hi'
 
 import { Link } from '@/app/components/link'
 import { TechBadge } from '@/app/components/tech-badge'
+import { Project } from '@/app/types/projects'
 
 type ProjectCardProps = {
-  image: string
+  project: Project
 }
 
-export function ProjectCard({ image }: ProjectCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div className="flex gap-6 lg:gap-12 flex-col lg:flex-row">
       <div className="w-full h-full">
         <Image
           width={420}
           height={304}
-          src={image}
+          src={project.thumbnail.url}
           alt=""
           className="w-full h-[200px] sm:h-[300px] lg:w-[420px] lg:min-h-full object-cover rounded-lg"
         />
@@ -29,26 +30,18 @@ export function ProjectCard({ image }: ProjectCardProps) {
             alt=""
             src="/images/icons/project-title-icon.svg"
           />
-          BookWise
+          {project.title}
         </h3>
 
-        <p className="text-gray-400 my-6">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat
-          libero maiores in voluptatum, ipsum nostrum optio iusto molestiae
-          itaque eaque vel sapiente ex architecto. Facere iure unde earum
-          asperiores cum!
-        </p>
+        <p className="text-gray-400 my-6">{project.shortDescription}</p>
 
         <div className="flex gap-x-2 gap-y-3 flex-wrap mb-8 lg:max-w-[350px]">
-          <TechBadge name="Next.js" />
-          <TechBadge name="Node.js" />
-          <TechBadge name="React" />
-          <TechBadge name="Typescript" />
-          <TechBadge name="CSS" />
-          <TechBadge name="HTML" />
+          {project.technologies.map((tech, i) => (
+            <TechBadge key={i} name={tech.name} />
+          ))}
         </div>
 
-        <Link href="/projetcs/book-wise">
+        <Link href={`/projects/book-wise`}>
           Ver projeto
           <HiArrowNarrowRight />
         </Link>

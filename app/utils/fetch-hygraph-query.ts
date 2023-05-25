@@ -1,4 +1,12 @@
-export async function FechHygraphQuery(query: string, revalidate?: number) {
+type FechHygraphQueryProps = {
+  query: string
+  revalidateTime?: number
+}
+
+export async function FechHygraphQuery({
+  query,
+  revalidateTime,
+}: FechHygraphQueryProps) {
   const response = await fetch(process.env.HYGRAPH_URL!, {
     method: 'POST',
     headers: {
@@ -8,7 +16,7 @@ export async function FechHygraphQuery(query: string, revalidate?: number) {
     },
     body: JSON.stringify({ query }),
     next: {
-      revalidate,
+      revalidate: revalidateTime,
     },
   })
 

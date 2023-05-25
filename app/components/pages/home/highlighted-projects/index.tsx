@@ -3,18 +3,25 @@ import { SectionTitle } from '@/app/components/section-title'
 import { ProjectCard } from './project-card'
 import { Link } from '@/app/components/link'
 import { HiArrowNarrowRight } from 'react-icons/hi'
+import { Project } from '@/app/types/projects'
 
-export function HighlightedProjects() {
+type HighlightedProjectsProps = {
+  projects: Project[]
+}
+
+export function HighlightedProjects({ projects }: HighlightedProjectsProps) {
   return (
     <section className="container py-16">
       <SectionTitle subtitle="destaques" title="Projetos em destaque" />
       <DividerHorizontal className="mb-16" />
 
       <div>
-        <ProjectCard image="https://portfolio-tutorial-2023.vercel.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FqSXcz2JdTMOPKlteRZKY&w=640&q=75" />
-        <DividerHorizontal className="my-16" />
-        <ProjectCard image="https://portfolio-tutorial-2023.vercel.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FtoUKTLaZT02dSeLft2pY&w=640&q=75" />
-        <DividerHorizontal className="my-16" />
+        {projects?.map((project, i) => (
+          <div key={i}>
+            <ProjectCard project={project} />
+            <DividerHorizontal className="my-16" />
+          </div>
+        ))}
 
         <p className="flex items-center gap-1.5">
           <span className="text-gray-400">Se interessou?</span>

@@ -1,15 +1,14 @@
+import { KnownTech as IKnownTech } from '@/app/types/projects'
 import { getRelativeTimeString } from '@/app/utils/get-relative-time'
-import { ReactNode } from 'react'
+import { CMSIcon } from '@/app/components/cms-icon'
 
 type KnownTechProps = {
-  tech: {
-    icon: ReactNode
-    name: string
-    startDate: string
-  }
+  tech: IKnownTech
 }
 
-export function KnownTech({ tech: { icon, name, startDate } }: KnownTechProps) {
+export function KnownTech({
+  tech: { iconSvg, name, startDate },
+}: KnownTechProps) {
   const relativeTime = getRelativeTimeString(
     new Date(startDate),
     'pt-BR',
@@ -19,7 +18,7 @@ export function KnownTech({ tech: { icon, name, startDate } }: KnownTechProps) {
     <div className="p-6 rounded-lg bg-gray-600/20 text-gray-500 flex flex-col gap-2 hover:text-emerald-500 hover:bg-gray-600/30 transition-all ">
       <div className="flex items-center justify-between">
         <p className="font-medium">{name}</p>
-        {icon}
+        <CMSIcon icon={iconSvg} />
       </div>
 
       <span>{relativeTime} de experiência</span>
