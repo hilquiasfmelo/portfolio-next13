@@ -3,7 +3,7 @@ type FechHygraphQueryProps = {
   revalidateTime?: number
 }
 
-export async function FechHygraphQuery({
+export async function fetchHygraphQuery({
   query,
   revalidateTime,
 }: FechHygraphQueryProps) {

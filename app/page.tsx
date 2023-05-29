@@ -4,7 +4,7 @@ import { KnownTechs } from './components/pages/home/known-techs'
 import { WorkExperience } from './components/pages/home/work-experience'
 
 import { HomePageData } from './types/page-info'
-import { FechHygraphQuery } from './utils/fetch-hygraph-query'
+import { fetchHygraphQuery } from './utils/fetch-hygraph-query'
 
 const getPageData = async (): Promise<HomePageData> => {
   const query = `
@@ -59,7 +59,7 @@ const getPageData = async (): Promise<HomePageData> => {
   }
   `
 
-  return FechHygraphQuery({
+  return fetchHygraphQuery({
     query,
     revalidateTime: 60 * 60 * 24, // 1day
   })
