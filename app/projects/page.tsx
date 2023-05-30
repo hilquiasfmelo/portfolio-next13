@@ -3,6 +3,10 @@ import { ProjectsList } from '../components/pages/projects/projects-list'
 import { ProjectPageData } from '../types/page-info'
 import { fetchHygraphQuery } from '../utils/fetch-hygraph-query'
 
+export const metadata = {
+  title: 'Projetos',
+}
+
 const getPageData = async (): Promise<ProjectPageData> => {
   const query = `
     query ProjectsQuery {

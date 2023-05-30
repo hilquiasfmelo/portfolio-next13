@@ -3,10 +3,10 @@ type FechHygraphQueryProps = {
   revalidateTime?: number
 }
 
-export async function fetchHygraphQuery({
+export const fetchHygraphQuery = async <T>({
   query,
   revalidateTime,
-}: FechHygraphQueryProps) {
+}: FechHygraphQueryProps): Promise<T> => {
   const response = await fetch(process.env.HYGRAPH_URL!, {
     method: 'POST',
     headers: {
@@ -14,10 +14,12 @@ export async function fetchHygraphQuery({
       Accept: 'application/json',
       Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
     },
-    body: JSON.stringify({ query }),
     next: {
       revalidate: revalidateTime,
     },
+    body: JSON.stringify({
+      query,
+    }),
   })
 
   const { data } = await response.json()
