@@ -1,13 +1,6 @@
-import {
-  TbBrandHtml5,
-  TbBrandCss3,
-  TbBrandJavascript,
-  TbBrandTypescript,
-  TbBrandReact,
-  TbBrandReactNative,
-  TbBrandNextjs,
-} from 'react-icons/tb'
-import { SiNodedotjs } from 'react-icons/si'
+'use client'
+
+import { motion } from 'framer-motion'
 
 import { SectionTitle } from '@/app/components/section-title'
 import { KnownTech } from './known-tech'
@@ -24,7 +17,15 @@ export function KnownTechs({ techs }: KnownTechsProps) {
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(264px,1fr))] gap-3 mt-[60px]">
         {techs?.map((tech, index) => (
-          <KnownTech tech={tech} key={index} />
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.15, delay: index * 0.1 }}
+          >
+            <KnownTech tech={tech} />
+          </motion.div>
         ))}
       </div>
     </section>

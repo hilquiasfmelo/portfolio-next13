@@ -4,11 +4,13 @@ import { HiArrowNarrowRight } from 'react-icons/hi'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { motion } from 'framer-motion'
 
 import { Button } from '../button'
 import { SectionTitle } from '../section-title'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
+import { fadeUpAnimation } from '@/app/lib/animations'
 
 const contactFormSchema = z.object({
   name: z.string().min(3).max(100),
@@ -46,7 +48,11 @@ export function ContactForm() {
       id="contact"
       className="py-16 px-6 md:py-32 flex items-center justify-center bg-gray-950"
     >
-      <div className="w-full max-w-[420px] mx-auto">
+      <motion.div
+        className="w-full max-w-[420px] mx-auto"
+        {...fadeUpAnimation}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
         <SectionTitle
           subtitle="contato"
           title="Vamos trabalhar juntos? Entre em contato"
@@ -90,7 +96,7 @@ export function ContactForm() {
             <HiArrowNarrowRight size={18} />
           </Button>
         </form>
-      </div>
+      </motion.div>
     </section>
   )
 }
